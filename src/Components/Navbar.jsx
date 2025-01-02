@@ -2,6 +2,7 @@ import { useState } from "react";
 import RclLogoNew from "../assets/Pictures/logo-01.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,9 +14,9 @@ function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="flex items-center justify-between px-4 md:px-8 py-4">
-        <a href="/" className="w-20 md:w-24">
+        <Link to="/" className="w-20 md:w-24">
           <img src={RclLogoNew} alt="RCL Logo" />
-        </a>
+        </Link>
 
         <button
           className="md:hidden block text-black focus:outline-none focus:ring-2 focus:ring-gray-400"
@@ -31,35 +32,35 @@ function Navbar() {
 
         <ul className="hidden md:flex space-x-8">
           <li>
-            <a
-              href="/Aboutus"
+            <Link
+              to="/aboutus"
               className="text-pritext hover:text-hoverText transition"
             >
               About Us
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/Services"
+            <Link
+              to="/services"
               className="text-pritext hover:text-hoverText transition"
             >
               Services
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#"
+            <Link
+              to="/career"
               className="text-pritext hover:text-hoverText transition"
             >
               Career
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/Contact">
+            <Link to="/contact">
               <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-hoverbackground transition-transform transform duration-300 hover:scale-105">
                 Contact Us
               </button>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -72,36 +73,36 @@ function Navbar() {
       >
         <ul className="space-y-4 py-6 px-6">
           <li>
-            <a
-              href="/Aboutus"
-              className="block text-pritext  hover:text-hoverText transition"
+            <Link
+              to="/aboutus"
+              className="block text-pritext hover:text-hoverText transition"
             >
               About Us
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/Services"
-              className="block text-pritext  hover:text-hoverText transition"
+            <Link
+              to="/services"
+              className="block text-pritext hover:text-hoverText transition"
             >
               Services
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/"
+            <Link
+              to="/career"
               className="block text-pritext hover:text-hoverText transition"
             >
               Career
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/Contact"
+            <Link
+              to="/contactus"
               className="block text-pritext hover:text-white hover:bg-hoverbackground transition"
             >
               Contact Us
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
