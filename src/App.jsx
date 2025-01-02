@@ -7,7 +7,7 @@ import Third from "./Components/Third";
 import Whatwedo from "./Components/Whatwedo";
 import ContactUS from "./Components/ContactUS";
 import Services from "../src/Components/Services";
-import Contact from "./Components/contact";
+import Contact from "./Components/Contact";
 function App() {
   return (
     <div className="">
