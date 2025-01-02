@@ -89,7 +89,7 @@ function Navbar() {
           </li>
           <li>
             <a
-              href="#"
+              href="/"
               className="block text-pritext hover:text-hoverText transition"
             >
               Career
