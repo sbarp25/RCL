@@ -1,90 +1,71 @@
-import { motion, useAnimation } from "framer-motion";
-import React, { useRef } from "react";
+import React, { useState, useEffect } from "react";
 import client1 from "../assets/images/client1.png";
 import client2 from "../assets/images/client2.png";
-import client3 from "../assets/images/client3.png";
 
-const ScrollingContainer = () => {
+const AutoSlideContainer = () => {
   const items = [
-    { id: 1, image: client1, link: "https://nilgirikholahydropower.com/" },
-    { id: 2, image: client2, link: "https://www.redswissatrekking.com/" },
-    { id: 3, image: client3, link: "https://example3.com" },
+    {
+      id: 1,
+      image: client2,
+      link: "https://nilgirikholahydropower.com/",
+      description: [
+        "A hydropower company in Nepal developing sustainable projects.",
+        "Projects like Nilgiri Khola I (38 MW) and II (71 MW).",
+        "Supporting the country’s energy sector.",
+      ],
+    },
+    {
+      id: 2,
+      image: client1,
+      link: "https://www.redswissatrekking.com/",
+      description: [
+        "A Nepal-based travel company offering trekking, rafting.",
+        "Services include paragliding, jungle safaris, and adventure tours.",
+        "Over 11 years of experience with personalized services.",
+      ],
+    },
   ];
 
-  const controls = useAnimation();
-  const positionRef = useRef(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const totalWidth = items.length * 500; // Width of all items combined (assuming 500px width per item)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
+    }, 10000);
 
-  const containerVariants = {
-    animate: {
-      x: [0, -totalWidth], // Scroll left by the total width of the items
-      transition: {
-        x: {
-          repeat: Infinity, // Loop the animation
-          duration: 10, // Adjust the speed (10 seconds per loop)
-          ease: "linear", // Smooth linear motion
-        },
-      },
-    },
-  };
-
-  const handleHoverStart = async () => {
-    // Stop the animation and record the current position
-    controls.stop();
-    const currentStyles = await controls.get();
-    positionRef.current = parseFloat(currentStyles.x || "0");
-  };
-
-  const handleHoverEnd = () => {
-    // Resume the animation from the current position
-    controls.start({
-      x: [positionRef.current, -totalWidth], // Continue scrolling left
-      transition: {
-        x: {
-          repeat: Infinity, // Loop the animation
-          duration: 10, // Adjust the speed
-          ease: "linear", // Smooth linear motion
-        },
-      },
-    });
-  };
+    return () => clearInterval(interval);
+  }, [items.length]);
 
   return (
-    <div className="relative overflow-hidden bg-white h-[250px] w-full">
-      <motion.div
-        className="flex"
-        animate={controls}
-        initial="animate"
-        variants={containerVariants}
-      >
-        {/* Duplicate items for seamless looping */}
-        {items.concat(items).map((item, index) => (
-          <motion.div
-            key={index}
-            className={`w-[500px] h-[200px] m-4 flex justify-center items-center text-white text-lg font-bold relative ${
-              item.id === 2 ? "w-[500px] h-[100px]" : ""
-            } ${item.id === 3 ? "w-[300px] h-[250px]" : ""}`}
-            onHoverStart={handleHoverStart}
-            onHoverEnd={handleHoverEnd}
+    <div className="relative overflow-hidden bg-white h-[500px] w-full flex flex-col items-center">
+      {/* Single Slide */}
+      <div className="relative h-[300px] w-[500px] mb-10">
+        <div className="absolute inset-0 transition-opacity duration-1000 opacity-100">
+          <a
+            href={items[currentIndex].link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full h-full"
           >
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full h-full"
-            >
-              <img
-                src={item.image}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </a>
-          </motion.div>
+            <img
+              src={items[currentIndex].image}
+              alt={`Client ${items[currentIndex].id}`}
+              className="w-[80rem] h-[12rem] object-cover"
+            />
+          </a>
+        </div>
+      </div>
+
+      {/* Description */}
+      <div className="mt-8 text-center">
+        {items[currentIndex].description.map((line, idx) => (
+          <p key={idx} className="text-gray-700 text-lg">
+            {line}
+          </p>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };
 
-export default ScrollingContainer;
+export default AutoSlideContainer;

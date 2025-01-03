@@ -50,7 +50,7 @@ export default {
       },
       animation: {
         'text-pop-up-top': 'text-pop-up-top 1s ease-in-out',
-        typing: "typing 2s steps(40, end),  step-end 1000",
+        typing: "typing 1s steps(40, end),  step-end 1000",
         "fade-in": "fadeIn 1s ease-in-out",
         "pop-out": 'pop-out 0.8s ease-out forwards',
         'fade-in-up': 'fadeInUp 0.6s ease-out forwards',

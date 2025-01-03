@@ -1,6 +1,5 @@
 import React from "react";
 import tri from "../assets/Pictures/Tri.jpg";
-// import tri from "../assets/Pictures/tri.jpg";
 import ali from "../assets/Pictures/ali.jpg";
 import anu from "../assets/Pictures/anu.jpg";
 import group from "../assets/Pictures/group.jpg";

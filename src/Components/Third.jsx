@@ -5,7 +5,7 @@ const Third = () => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between md:space-y-0 md:space-x-8 px-4 md:px-12 py-8 bg-black text-white gap-36 ">
       <div className="flex flex-col md:flex-row items-center justify-between w-full">
-        <div className="md:w-1/2 flex justify-center mt-18 w-[175px]">
+        <div className="md:w-1/2 flex justify-center mt-18 w-full">
           <Lottie
             animationData={Contactus}
             style={{ width: "100%", maxWidth: "1000px" }}

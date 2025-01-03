@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Lottie from "lottie-react";
-import aboutus from "../assets/Pictures/qwe.json";
 import frontend from "../assets/Pictures/frontend.json";
 import Node from "../assets/Pictures/Node.json";
 import python from "../assets/Pictures/python.json";
@@ -9,20 +8,9 @@ import database from "../assets/Pictures/database.json";
 import java from "../assets/Pictures/java.json";
 import seo from "../assets/Pictures/seo.json";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 
 const Services = () => {
-  const [step, setStep] = useState(0);
-
-  useEffect(() => {
-    const timeouts = [
-      setTimeout(() => setStep(1), 1000),
-      setTimeout(() => setStep(2), 3000),
-      setTimeout(() => setStep(3), 5000),
-    ];
-
-    return () => timeouts.forEach((timeout) => clearTimeout(timeout));
-  }, []);
-
   return (
     <>
       <div className="flex flex-col md:flex-row items-center justify-between w-full h-screen md:h-[100vh] px-4 mt-4 bg-white gap-64">
@@ -31,22 +19,11 @@ const Services = () => {
             Our Service
           </h1>
           <div className="flex flex-col space-y-4 ml-16">
-            {step >= 1 && (
-              <p className="font-Poppins text-3xl md:text-lg text-pritext  text-left animate-typing overflow-hidden whitespace-nowrap border-r-4">
-                We deliver cutting-edge web solutions that enable achieving
-                strategic
-              </p>
-            )}
-            {step >= 2 && (
-              <p className="font-Poppins text-3xl md:text-lg text-pritext  text-left animate-typing overflow-hidden whitespace-nowrap border-r-4">
-                milestones effectively. Our team harnesses the power of digital
-              </p>
-            )}
-            {step >= 3 && (
-              <p className="font-Poppins text-lg md:text-lg text-pritext  text-left animate-typing overflow-hidden whitespace-nowrap border-r-4">
-                innovation to drive your business success online.
-              </p>
-            )}
+            <p className="font-Poppins text-3xl md:text-lg text-pritext  text-left">
+              We deliver cutting-edge web solutions that enable achieving
+              strategic milestones effectively. Our team harnesses the power of
+              digital innovation to drive your business success online.
+            </p>
           </div>
         </div>
         <div className="w-full md:w-1/2 -mt-4 p-2">
@@ -209,9 +186,11 @@ const Services = () => {
           If you&apos;re interested in learning more about our offerings, please
           reach out to us.
         </p>
-        <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          Contact Us
-        </button>
+        <Link to="/contact">
+          <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-hoverbackground">
+            Contact Us
+          </button>
+        </Link>
       </footer>
       <Footer />
     </>

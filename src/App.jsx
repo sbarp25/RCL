@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Aboutus from "./Components/Aboutus";
 import Body from "./Components/Body";
 import Navbar from "./Components/Navbar";
@@ -14,11 +14,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Body />} />
-        <Route path="/aboutus" element={<Aboutus />} />
-        <Route path="/contactus" element={<ContactUS />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/Aboutus" element={<Aboutus />} />
+        <Route path="/Contactus" element={<ContactUS />} />
+        <Route path="/Services" element={<Services />} />
+        <Route path="/Contact" element={<Contact />} />
       </Routes>
     </div>
   );

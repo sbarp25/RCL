@@ -14,9 +14,9 @@ function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="flex items-center justify-between px-4 md:px-8 py-4">
-        <Link to="/" className="w-20 md:w-24">
+        <a href="/" className="w-20 md:w-24">
           <img src={RclLogoNew} alt="RCL Logo" />
-        </Link>
+        </a>
 
         <button
           className="md:hidden block text-black focus:outline-none focus:ring-2 focus:ring-gray-400"
@@ -33,7 +33,7 @@ function Navbar() {
         <ul className="hidden md:flex space-x-8">
           <li>
             <Link
-              to="/aboutus"
+              to="/Aboutus"
               className="text-pritext hover:text-hoverText transition"
             >
               About Us
@@ -41,22 +41,15 @@ function Navbar() {
           </li>
           <li>
             <Link
-              to="/services"
+              to="/Services"
               className="text-pritext hover:text-hoverText transition"
             >
               Services
             </Link>
           </li>
+
           <li>
-            <Link
-              to="/career"
-              className="text-pritext hover:text-hoverText transition"
-            >
-              Career
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact">
+            <Link to="/Contact">
               <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-hoverbackground transition-transform transform duration-300 hover:scale-105">
                 Contact Us
               </button>
@@ -74,31 +67,24 @@ function Navbar() {
         <ul className="space-y-4 py-6 px-6">
           <li>
             <Link
-              to="/aboutus"
-              className="block text-pritext hover:text-hoverText transition"
+              to="/Aboutus"
+              className="block text-pritext  hover:text-hoverText transition"
             >
               About Us
             </Link>
           </li>
           <li>
             <Link
-              to="/services"
-              className="block text-pritext hover:text-hoverText transition"
+              to="/Services"
+              className="block text-pritext  hover:text-hoverText transition"
             >
               Services
             </Link>
           </li>
+
           <li>
             <Link
-              to="/career"
-              className="block text-pritext hover:text-hoverText transition"
-            >
-              Career
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/contactus"
+              to="/Contact"
               className="block text-pritext hover:text-white hover:bg-hoverbackground transition"
             >
               Contact Us
