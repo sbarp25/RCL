@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import Footer from "./Footer";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const DefaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -14,41 +16,80 @@ const DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { fullName, phone, email, subject, message } = formData;
+
+    const newMessage = {
+      data: {
+        to: "ojan@rebootedcl.com",
+        subject: formData.subject,
+        text: formData.message,
+        html: "<p>Hello, this is an <b>HTML</b> email.</p> from Node",
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        "https://mailer-e7jc.onrender.com/send-email",
+        newMessage,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.responseCode === "201") {
+        toast.success(response.data.message);
+      } else {
+        toast.error("Failed to add role.");
+      }
+    } catch (error) {
+      toast.error("Error adding role.");
+      console.error(error);
+    }
+  };
+
   const position = [27.675488, 85.313901];
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8 mt-4">
+      <div className="container mx-auto px-4 py-8 mt-4 relative">
         {/* Contact Us Section */}
-        <div className="bg-white shadow-lg rounded-lg p-6">
+        <div className="bg-white shadow-lg rounded-lg p-6 relative z-10">
           <h2 className="text-4xl font-bold text-center mb-6">Contact Us</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Contact Form */}
             <div>
-              <form className="flex flex-col gap-4">
+              <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  placeholder="Full Name"
-                  className="border border-gray-300 rounded-lg p-3 w-full"
-                />
-                <input
-                  type="text"
-                  placeholder="Phone"
-                  className="border border-gray-300 rounded-lg p-3 w-full"
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="border border-gray-300 rounded-lg p-3 w-full"
-                />
-                <input
-                  type="text"
+                  name="subject"
                   placeholder="Subject"
                   className="border border-gray-300 rounded-lg p-3 w-full"
+                  value={formData.subject}
+                  onChange={handleChange}
                 />
                 <textarea
+                  name="message"
                   placeholder="Message"
                   className="border border-gray-300 rounded-lg p-3 w-full h-32 resize-none"
+                  value={formData.message}
+                  onChange={handleChange}
                 ></textarea>
                 <button
                   type="submit"
@@ -60,11 +101,12 @@ const Contact = () => {
             </div>
 
             {/* Map Section */}
-            <div className="border border-gray-300 shadow-md rounded-lg overflow-hidden h-[400px]">
+            <div className="border border-gray-300 shadow-md rounded-lg overflow-hidden h-[400px] z-0 relative">
               <MapContainer
                 center={position}
                 zoom={13}
                 className="h-full w-full"
+                scrollWheelZoom={false} // Disable zoom by scroll
               >
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

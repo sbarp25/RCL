@@ -4,7 +4,7 @@ const Buildfuture = () => {
   return (
     <>
       <div className="text-center md:text-center    mt-36 ">
-        <h1 className="text-6xl font-bold text-gray-800 font-Poppins">
+        <h1 className="text-6xl font-bold text-gray-900 font-Poppins">
           WE BUILD FUTURE
         </h1>
         <p className="text-lg text-pritext  mt-2 leading-relaxed font-Poppins ">

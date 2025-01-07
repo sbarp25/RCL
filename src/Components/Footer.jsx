@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-white py-6 ">
       <div className="container mx-auto -px-96 flex flex-col md:flex-row items-center justify-between ">
         {/* Left Section: Logo */}
-        <div className="flex items-center space-x-4 mb-4 md:mb-0">
+        <div className="flex items-center space-x-4 mb-4 md:mb-0 ml-12">
           <img src={logo} alt="Rebooted Creation Labs Logo" className="h-12" />
         </div>
 

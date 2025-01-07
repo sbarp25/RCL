@@ -10,6 +10,7 @@ import Blog from "../Components/Blog";
 import Ourclient from "../Components/OurClient";
 import BuildFututre from "../Components/Buildfuture";
 import Footer from "../Components/Footer";
+import SlidingHover from "./SlidingHover";
 
 const Body = () => {
   const [step, setStep] = useState(0);
@@ -29,10 +30,12 @@ const Body = () => {
       <div className="relative w-full h-screen bg-white overflow-hidden">
         {/* Animation Layer */}
         <div className="absolute inset-0">
-          <div className="absolute right-[50%] translate-x-1/2 -top-20 lg:right-[100px] lg:top-[10px] lg:translate-x-0">
+          <div className="absolute right-[50%] translate-x-1/2 -top-20 lg:right-[100px] lg:top-[10px] lg:translate-x-0 mt-12">
             <Lottie
               animationData={homepage}
-              className="w-[700px] h-[700px] lg:w-[800px] lg:h-[700px]"
+              className="w-[700px] h-[700px] lg:w-[800px] lg:h-[700px]  "
+              loop={false} // Ensures the animation doesn't loop
+              autoplay={true} // Starts the animation immediately
             />
           </div>
         </div>
@@ -73,7 +76,8 @@ const Body = () => {
       <ContactUS />
       <Carrier />
       <Blog />
-      <Ourclient />
+      {/* <Ourclient /> */}
+      <SlidingHover />
       <BuildFututre />
       <Footer />
     </>

@@ -1,22 +1,24 @@
 import ourmission from "../assets/Pictures/Ourmission.json";
 import Lottie from "lottie-react";
-import Nextpage1 from "./Nextpage1";
 
 const Ourmission = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row items-center justify-between bg-white ">
-        <div className="flex-1 ml-16 -mt-5 text-center">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center bg-black text-white px-4 py-8 gap-8">
+        {/* Animation Section */}
+        <div className="flex-1 flex justify-center items-center">
           <Lottie
             animationData={ourmission}
-            style={{ width: "100%", maxWidth: "500px" }}
+            style={{ width: "100%", maxWidth: "400px" }}
           />
         </div>
-        <div className="flex-1 space-y-2 px-4">
-          <h1 className="text-4xl md:text-6xl font-bold text-pritext ">
+
+        {/* Text Section */}
+        <div className="flex-1 space-y-4 text-center md:text-left">
+          <h1 className="text-4xl md:text-6xl font-bold text-white">
             Our Mission
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-white text-left">
             At rebooted creation Labs, your success is at the heart of
             everything we do. We unite exceptional talent with an unrelenting
             commitment to driving customer success. Passionate about innovation,
@@ -29,7 +31,6 @@ const Ourmission = () => {
           </p>
         </div>
       </div>
-      <Nextpage1 />
     </>
   );
 };
