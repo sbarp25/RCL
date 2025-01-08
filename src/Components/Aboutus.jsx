@@ -44,7 +44,7 @@ const Aboutus = () => {
       <Whatwedo />
       <Ourmission />
       <Nextpage />
-      <Gallery />
+      {/* <Gallery /> */}
       <Footer />
     </>
   );
