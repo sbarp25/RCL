@@ -7,6 +7,7 @@ import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import Footer from "./Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { MessageSquare, MapPin, Phone, Clock, Mail } from "lucide-react";
 
 const DefaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -17,12 +18,11 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    email: "",
     subject: "",
     message: "",
   });
+
+  const [focusedField, setFocusedField] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,8 +31,6 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { fullName, phone, email, subject, message } = formData;
-
     const newMessage = {
       data: {
         to: "ojan@rebootedcl.com",
@@ -55,100 +53,143 @@ const Contact = () => {
 
       if (response.data.responseCode === "201") {
         toast.success(response.data.message);
+        setFormData({ subject: "", message: "" });
       } else {
-        toast.error("Failed to add role.");
+        toast.error("Failed to send message.");
       }
     } catch (error) {
-      toast.error("Error adding role.");
+      toast.error("Error sending message.");
       console.error(error);
     }
   };
 
   const position = [27.675488, 85.313901];
 
+  const contactInfo = [
+    {
+      icon: <MapPin className="w-6 h-6" />,
+      title: "Location",
+      content: "Kathmandu, Nepal",
+    },
+    {
+      icon: <Phone className="w-6 h-6" />,
+      title: "Phone",
+      content: "+977 9764181219",
+    },
+    {
+      icon: <Clock className="w-6 h-6" />,
+      title: "Hours",
+      content: "Sun-Fri: 10 AM - 5 PM",
+    },
+    {
+      icon: <Mail className="w-6 h-6" />,
+      title: "Email",
+      content: "info@rebootedcl.com",
+    },
+  ];
+
   return (
-    <>
-      <div className="container mx-auto px-4 py-8 mt-4 relative">
-        {/* Contact Us Section */}
-        <div className="bg-white shadow-lg rounded-lg p-6 relative z-10">
-          <h2 className="text-4xl font-bold text-center mb-6">Contact Us</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Contact Form */}
-            <div>
-              <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <div className="min-h-screen bg-black">
+      {/* Hero Section */}
+      <div className="relative h-[40vh] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(0,0,0,0.8))]" />
+        <div className="container mx-auto px-4 h-full flex items-center justify-center relative z-10">
+          <h1 className="text-7xl font-bold text-white tracking-tight">
+            Let's Connect<span className="text-blue-500">.</span>
+          </h1>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16 -mt-20 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <div className="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+            <h2 className="text-2xl font-bold text-white mb-8">Send Message</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="relative">
                 <input
                   type="text"
                   name="subject"
-                  placeholder="Subject"
-                  className="border border-gray-300 rounded-lg p-3 w-full"
                   value={formData.subject}
                   onChange={handleChange}
+                  onFocus={() => setFocusedField("subject")}
+                  onBlur={() => setFocusedField(null)}
+                  className="w-full bg-transparent text-white border-b border-zinc-700 py-3 pl-4 pr-12 focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="Subject"
                 />
+                <MessageSquare className={`absolute right-4 top-3 w-5 h-5 ${
+                  focusedField === "subject" ? "text-blue-500" : "text-zinc-600"
+                }`} />
+              </div>
+              
+              <div className="relative">
                 <textarea
                   name="message"
-                  placeholder="Message"
-                  className="border border-gray-300 rounded-lg p-3 w-full h-32 resize-none"
                   value={formData.message}
                   onChange={handleChange}
-                ></textarea>
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white rounded-lg py-3 px-6 hover:bg-blue-600 transition"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-
-            {/* Map Section */}
-            <div className="border border-gray-300 shadow-md rounded-lg overflow-hidden h-[400px] z-0 relative">
-              <MapContainer
-                center={position}
-                zoom={13}
-                className="h-full w-full"
-                scrollWheelZoom={false} // Disable zoom by scroll
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  onFocus={() => setFocusedField("message")}
+                  onBlur={() => setFocusedField(null)}
+                  className="w-full bg-transparent text-white border-b border-zinc-700 py-3 pl-4 pr-12 h-32 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                  placeholder="Your message"
                 />
-                <Marker position={position}>
-                  <Popup>
-                    Rebooted Creation Labs
-                    <br />
-                    Pulchowk, Lalitpur
-                  </Popup>
-                </Marker>
-              </MapContainer>
-            </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          {/* Map */}
+          <div className="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800">
+            <MapContainer
+              center={position}
+              zoom={13}
+              className="h-[400px] w-full"
+              scrollWheelZoom={false}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Marker position={position}>
+                <Popup>
+                  Rebooted Creation Labs
+                  <br />
+                  Pulchowk, Lalitpur
+                </Popup>
+              </Marker>
+            </MapContainer>
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-red-500 text-3xl">📍</span>
-            <h3 className="text-xl font-bold">Location</h3>
-            <p>Kathmandu, Nepal</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-red-500 text-3xl">📞</span>
-            <h3 className="text-xl font-bold">Phone</h3>
-            <p>+977 9764181219, +977 9764181472</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-red-500 text-3xl">⏰</span>
-            <h3 className="text-xl font-bold">Working Hours</h3>
-            <p>Sun-Fri: 10 AM - 5 PM</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-red-500 text-3xl">📧</span>
-            <h3 className="text-xl font-bold">Email</h3>
-            <p>info@rebootedcl.com</p>
-          </div>
+        {/* Contact Info */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+          {contactInfo.map((item, index) => (
+            <div
+              key={index}
+              className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500/50 transition-colors group"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="p-3 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                  {item.icon}
+                </div>
+                <div>
+                  <h3 className="text-white font-medium">{item.title}</h3>
+                  <p className="text-zinc-400 text-sm mt-1">{item.content}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
