@@ -128,7 +128,7 @@ const Contact = () => {
           <div className="flex flex-col items-center gap-2">
             <span className="text-red-500 text-3xl">📍</span>
             <h3 className="text-xl font-bold">Location</h3>
-            <p>Nepal, Kathmandu</p>
+            <p>Kathmandu, Nepal</p>
           </div>
           <div className="flex flex-col items-center gap-2">
             <span className="text-red-500 text-3xl">📞</span>
